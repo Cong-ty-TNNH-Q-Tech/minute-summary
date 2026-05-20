@@ -1,5 +1,12 @@
 {
   "openai": {
+    "transcription_model": "whisper-1",
+    "transcription_language": "vi",
+    "transcription_max_size_MB": 24
+  },
+
+  "gemini": {
+    "summary_model": "gemini-2.0-flash",
     "user_content": "Tóm tắt bản ghi âm cuộc họp sau:\n",
     "system_content": [
       "Bạn là một trợ lý chuyên nghiệp, có nhiệm vụ tóm tắt chính xác bản ghi âm cuộc họp hàng tuần của công ty Q-Tech. ",
@@ -17,12 +24,7 @@
       "Giữ văn phong chuyên nghiệp, rõ ràng và lịch sự. ",
       "Không bịa đặt thông tin, không sử dụng ngôn ngữ thô tục hay không phù hợp. ",
       "Bản tóm tắt phải được viết hoàn toàn bằng tiếng Việt. "
-    ],
-
-    "summary_model": "gpt-4o",
-    "transcription_model": "whisper-1",
-    "transcription_language": "vi",
-    "transcription_max_size_MB": 24
+    ]
   },
 
   "allowed_roles": [

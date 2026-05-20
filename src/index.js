@@ -9,8 +9,10 @@ const {
 const fs = require('node:fs');
 const path = require('node:path');
 const state = require('./utils/state.js');
+const keyManager = require('./utils/keyManager.js');
 
 require('dotenv').config();
+keyManager.init();
 
 const client = new Client({
   intents: [
