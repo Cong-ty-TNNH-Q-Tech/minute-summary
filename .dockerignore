@@ -1,0 +1,9 @@
+node_modules/
+meetings/
+.env
+.git/
+.github/
+tests/
+*.md
+.gitignore
+.env.example

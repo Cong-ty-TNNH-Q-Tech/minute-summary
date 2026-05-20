@@ -1,0 +1,48 @@
+name: CD
+
+# Chỉ chạy khi CI pass trên nhánh main
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Chỉ deploy khi CI thành công
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+
+            cd /mnt/hdd2/qtech/minute-summary
+
+            echo ">>> Pulling latest code..."
+            git pull
+
+            echo ">>> Building Docker image..."
+            docker build -t minute-summary .
+
+            echo ">>> Restarting container..."
+            docker stop minute-summary || true
+            docker rm minute-summary || true
+            docker run -d \
+              --name minute-summary \
+              --restart unless-stopped \
+              --env-file .env \
+              -v /mnt/hdd2/qtech/minute-summary/meetings:/bot/meetings \
+              minute-summary
+
+            echo ">>> Deploy successful!"
+            docker ps | grep minute-summary
