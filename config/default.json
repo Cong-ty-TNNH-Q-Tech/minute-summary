@@ -6,7 +6,7 @@
   },
 
   "gemini": {
-    "summary_model": "gemini-2.0-flash",
+    "summary_model": "gemini-2.5-flash-preview-04-17",
     "user_content": "Tóm tắt bản ghi âm cuộc họp sau:\n",
     "system_content": [
       "Bạn là một trợ lý chuyên nghiệp, có nhiệm vụ tóm tắt chính xác bản ghi âm cuộc họp hàng tuần của công ty Q-Tech. ",
