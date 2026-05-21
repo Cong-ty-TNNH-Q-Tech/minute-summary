@@ -1,0 +1,13 @@
+services:
+  minute-summary:
+    build: .
+    container_name: minute-summary
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./meetings:/bot/meetings
+      - whisper-models:/bot/node_modules/nodejs-whisper/cpp/whisper.cpp/models
+
+volumes:
+  whisper-models:
