@@ -10,7 +10,7 @@ WORKDIR /bot
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install && chmod +x node_modules/ffmpeg-static/ffmpeg
 
 COPY . .
 
