@@ -11,7 +11,10 @@ WORKDIR /bot
 
 COPY package*.json ./
 
-RUN npm install && chmod +x node_modules/ffmpeg-static/ffmpeg
+RUN npm install && \
+    chmod +x node_modules/ffmpeg-static/ffmpeg && \
+    ln -sf /bot/node_modules/nodejs-whisper/cpp/whisper.cpp/build/bin/whisper-cli \
+            /bot/node_modules/nodejs-whisper/cpp/whisper.cpp/main
 
 COPY . .
 
