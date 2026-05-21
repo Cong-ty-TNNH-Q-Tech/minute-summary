@@ -205,7 +205,6 @@ module.exports = {
           whisperOptions: {
             outputInText: true,
             language: config.get('whisper.language'),
-            splitOnWord: true,
           },
         });
 
