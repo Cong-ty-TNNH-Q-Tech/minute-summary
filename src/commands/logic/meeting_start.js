@@ -192,6 +192,14 @@ module.exports = {
 
           const pcmStream = new PassThrough();
 
+          let firstPacketLogged = false;
+          audioStream.on('data', (chunk) => {
+            if(!firstPacketLogged) {
+              console.log(`[Debug] First audio packet: ${chunk.length} bytes | hex: ${chunk.slice(0, 16).toString('hex')}`);
+              firstPacketLogged = true;
+            }
+          });
+
           audioStream.pipe(opusDecoder).pipe(pcmStream);
 
           opusDecoder.on('error', (err) => {
