@@ -228,6 +228,7 @@ module.exports = {
 
         receiver.speaking.on('end', (userId) => {
           console.log(`[Recording] Speaking END detected for user: ${userId}`);
+          if(!state.userStreams) return;
           const streamInfo = state.userStreams.get(userId);
           if(streamInfo) {
             console.log(`[Recording] Bytes received from user ${userId}: ${streamInfo.bytesReceived || 0}`);
