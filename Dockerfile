@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:22
 
 # Build tools cho whisper.cpp + ffmpeg cho audio conversion
 RUN apt-get update && apt-get install -y \
