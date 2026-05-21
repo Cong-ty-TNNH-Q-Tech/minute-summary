@@ -3,7 +3,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 const ffmpeg = require('ffmpeg-static');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const OpenAI = require('openai');
+const { nodewhisper } = require('nodejs-whisper');
 const config = require('config');
 const state = require('./state');
 const keyManager = require('./keyManager');
@@ -188,20 +188,28 @@ module.exports = {
     return partFiles;
   },
 
-  // Phiên âm bằng OpenAI Whisper
-  transcribe: async (audioParts) => {
+  // Phiên âm bằng Whisper local (nodejs-whisper)
+  transcribe: async(audioParts) => {
     let fullTranscription = '';
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     try {
       for(const filePath of audioParts) {
-        const transcription = await openai.audio.transcriptions.create({
-          file: fs.createReadStream(filePath),
-          model: config.get('openai.transcription_model'),
-          language: config.get('openai.transcription_language'),
+        console.log(`[Whisper] Transcribing: ${path.basename(filePath)}...`);
+
+        const text = await nodewhisper(filePath, {
+          modelName: config.get('whisper.model'),
+          autoDownloadModelName: config.get('whisper.model'),
+          verbose: false,
+          removeWavFileAfterTranscription: false,
+          withCuda: false,
+          whisperOptions: {
+            outputInText: true,
+            language: config.get('whisper.language'),
+            splitOnWord: true,
+          },
         });
 
-        fullTranscription += transcription.text + ' ';
+        fullTranscription += (text || '') + ' ';
         if(audioParts.length > 1) fs.unlinkSync(filePath);
       }
 

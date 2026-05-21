@@ -1,8 +1,7 @@
 {
-  "openai": {
-    "transcription_model": "whisper-1",
-    "transcription_language": "vi",
-    "transcription_max_size_MB": 24
+  "whisper": {
+    "model": "small",
+    "language": "vi"
   },
 
   "gemini": {
@@ -26,6 +25,8 @@
       "Bản tóm tắt phải được viết hoàn toàn bằng tiếng Việt. "
     ]
   },
+
+  "transcription_max_size_MB": 9999,
 
   "allowed_roles": [
     "admin",
