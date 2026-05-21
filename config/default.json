@@ -1,6 +1,6 @@
 {
   "whisper": {
-    "model": "small",
+    "model": "medium",
     "language": "vi"
   },
 
