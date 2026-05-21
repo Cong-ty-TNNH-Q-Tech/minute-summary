@@ -12,7 +12,7 @@ WORKDIR /bot
 
 COPY package*.json ./
 
-RUN npm install && \
+RUN rm -f package-lock.json && npm install && \
     chmod +x node_modules/ffmpeg-static/ffmpeg && \
     printf '#!/bin/sh\nexec "$(dirname "$0")/build/bin/whisper-cli" "$@"\n' \
         > node_modules/nodejs-whisper/cpp/whisper.cpp/main && \

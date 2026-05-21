@@ -23,7 +23,6 @@
   "description": "",
   "dependencies": {
     "@discordjs/voice": "^0.19.2",
-    "@snazzah/davey": "latest",
     "async-lock": "^1.4.1",
     "config": "^3.3.12",
     "discord.js": "^14.18.0",
