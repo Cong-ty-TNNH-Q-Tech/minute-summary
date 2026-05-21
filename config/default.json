@@ -26,7 +26,9 @@
     ]
   },
 
-  "transcription_max_size_MB": 9999,
+  "openai": {
+    "transcription_max_size_MB": 24
+  },
 
   "allowed_roles": [
     "admin",
