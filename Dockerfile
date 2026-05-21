@@ -13,7 +13,9 @@ COPY package*.json ./
 
 RUN npm install && \
     chmod +x node_modules/ffmpeg-static/ffmpeg && \
-    make -j -C node_modules/nodejs-whisper/cpp/whisper.cpp
+    printf '#!/bin/sh\nexec "$(dirname "$0")/build/bin/whisper-cli" "$@"\n' \
+        > node_modules/nodejs-whisper/cpp/whisper.cpp/main && \
+    chmod +x node_modules/nodejs-whisper/cpp/whisper.cpp/main
 
 COPY . .
 
