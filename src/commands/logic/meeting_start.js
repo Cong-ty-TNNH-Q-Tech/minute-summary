@@ -173,6 +173,7 @@ module.exports = {
         state.userStreams = new Map();
 
         receiver.speaking.on('start', (userId) => {
+          console.log(`[Recording] Speaking START detected for user: ${userId}`);
           if(state.userStreams.has(userId)) return;
 
           const opusDecoder = new prism.opus.Decoder({
@@ -194,9 +195,11 @@ module.exports = {
 
           state.userBuffers.set(userId, { buffer: Buffer.alloc(0), position: 0 });
 
+          let bytesReceived = 0;
           pcmStream.on('data', (chunk) => {
             const user = state.userBuffers.get(userId);
             user.buffer = Buffer.concat([user.buffer, chunk]);
+            bytesReceived += chunk.length;
           });
 
           state.userStreams.set(userId, {
@@ -207,8 +210,10 @@ module.exports = {
         });
 
         receiver.speaking.on('end', (userId) => {
+          console.log(`[Recording] Speaking END detected for user: ${userId}`);
           const streamInfo = state.userStreams.get(userId);
           if(streamInfo) {
+            console.log(`[Recording] Bytes received from user ${userId}: ${streamInfo.bytesReceived || 0}`);
             streamInfo.audioStream.destroy();
             streamInfo.opusDecoder.destroy();
             streamInfo.pcmStream.destroy();
