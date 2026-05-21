@@ -194,6 +194,14 @@ module.exports = {
 
           audioStream.pipe(opusDecoder).pipe(pcmStream);
 
+          opusDecoder.on('error', (err) => {
+            console.warn(`[Recording] Opus decode error for user ${userId} (skipping): ${err.message}`);
+          });
+
+          audioStream.on('error', (err) => {
+            console.warn(`[Recording] Audio stream error for user ${userId}: ${err.message}`);
+          });
+
           state.userBuffers.set(userId, { buffer: Buffer.alloc(0), position: 0 });
 
           let bytesReceived = 0;
