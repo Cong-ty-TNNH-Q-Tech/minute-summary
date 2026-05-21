@@ -79,6 +79,7 @@ module.exports = {
           });
 
         state.connection.on('stateChange', (oldState, newState) => {
+          console.log(`[VoiceConnection] ${oldState.status} → ${newState.status}`);
           if(newState.status === djsv.VoiceConnectionStatus.Disconnected && 
              oldState.status !== newState.status) {
             console.error('Unexpected disconnection!');
