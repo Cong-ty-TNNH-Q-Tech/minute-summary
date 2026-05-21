@@ -52,6 +52,9 @@ module.exports = {
           return;
         }
 
+        const oggSize = fs.statSync(oggPath).size;
+        console.log(`[Diagnostics] OGG file size: ${(oggSize / 1024).toFixed(2)} KB`);
+
         state.meetings.push({
           name: meetingName,
           recorded: true,
@@ -69,6 +72,8 @@ module.exports = {
         const msg1 = await thread.send({ embeds: [embeds.convertingStartedEmbed] });
         try {
           await utils.convertOggToMp3(oggPath, mp3Path);
+          const mp3Size = fs.statSync(mp3Path).size;
+          console.log(`[Diagnostics] MP3 file size: ${(mp3Size / 1024).toFixed(2)} KB`);
           await msg1.edit({ embeds: [embeds.convertingSuccessEmbed] });
         } catch(err) {
           console.error('Error converting OGG to MP3: ', err);
