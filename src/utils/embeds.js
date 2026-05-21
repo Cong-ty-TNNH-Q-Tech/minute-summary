@@ -158,7 +158,7 @@ module.exports = {
       .setColor(0xff0000)
       .setTitle(':x: Processing Failed')
       .setDescription('An error occurred while processing the meeting.')
-      .addField('Error:', error)
+      .addFields({ name: 'Error:', value: String(error) || 'Unknown error' })
       .setTimestamp(),
 
   convertingStartedEmbed: new EmbedBuilder()
