@@ -28,6 +28,7 @@
   },
 
   "allowed_roles": [
+    "admin",
     "Admin",
     "Quản trị viên",
     "Weekly Transcription Bot Operator"
