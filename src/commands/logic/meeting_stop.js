@@ -97,9 +97,9 @@ module.exports = {
         try {
           transcription = await utils.transcribe(audioParts);
           if(!transcription) {
-            console.error('Transcription failed!');
-            await msg3.edit({ embeds: [embeds.transcriptionFailedEmbed] });
-            throw new Error('Transcription failed');
+            console.warn('No speech detected in recording.');
+            await msg3.edit({ embeds: [embeds.noSpeechDetectedEmbed] });
+            throw new Error('No speech detected');
           }
 
           console.log('Saving transcription to file...');

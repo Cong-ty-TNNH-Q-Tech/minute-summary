@@ -32,6 +32,12 @@ module.exports = {
     .setDescription('An error occurred while generating the transcription.')
     .setTimestamp(),
 
+  noSpeechDetectedEmbed: new EmbedBuilder()
+    .setColor(0xffcc00)
+    .setTitle(':mute: No Speech Detected')
+    .setDescription('The recording was too short or contained no detectable speech. Please record for at least a few seconds.')
+    .setTimestamp(),
+
   summaryStartedEmbed: new EmbedBuilder()
     .setColor(0x3498db)
     .setTitle(':page_facing_up: Summary Started')
